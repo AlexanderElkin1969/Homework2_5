@@ -24,27 +24,32 @@ public class EmployeeController {
     public String find(@RequestParam("firstName") String firstName,
                        @RequestParam("lastName") String lastName){
         try {
-            if (employeeService.findService(firstName, lastName)) {
-                return firstName + " " + lastName + " в списке сотрудников.";
-            }
+                return employeeService.findService(firstName, lastName).toString() + " в списке сотрудников";
         }catch (EmployeeNotFoundException e){
             return e.getLocalizedMessage();
         }
-        return firstName + " " + lastName;
     }
+
     @GetMapping(path="/add")
     public String add(@RequestParam("firstName") String firstName,
                        @RequestParam("lastName") String lastName){
         try {
-            if (employeeService.addService(firstName, lastName)) {
-                return firstName + " " + lastName + " добавлен в список сотрудников.";
-            }
+            return employeeService.addService(firstName, lastName).toString() + " добавлен в список сотрудников.";
         }catch (EmployeeAlreadyAdded e){
             return e.getLocalizedMessage();
         }catch (EmployeeStorageIsFullException e) {
             return e.getLocalizedMessage();
         }
-        return firstName + " " + lastName;
+    }
+
+    @GetMapping(path="/remove")
+    public String remove(@RequestParam("firstName") String firstName,
+                       @RequestParam("lastName") String lastName){
+        try {
+            return employeeService.removeService(firstName, lastName).toString() + " удален из списка сотрудников";
+        }catch (EmployeeNotFoundException e){
+            return e.getLocalizedMessage();
+        }
     }
 
 }
