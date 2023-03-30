@@ -16,15 +16,15 @@ public class EmployeeServise {
             new Employee("Иван", "Иванов"),
             new Employee("Александр", "Егоров"),
             new Employee("Александр", "Петров")
-            ));
+    ));
 
-    public Employee findService(String firstName, String lastName) throws EmployeeNotFoundException{
+    public Employee findService(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee buffer = new Employee(firstName, lastName);
-        if (employees.size() == 0){
-            throw  new EmployeeNotFoundException("Список сотрудников пуст.");
+        if (employees.size() == 0) {
+            throw new EmployeeNotFoundException("Список сотрудников пуст.");
         }
         for (Employee employee : employees) {
-            if (employee.equals(buffer)){
+            if (employee.equals(buffer)) {
                 return employee;
             }
         }
@@ -33,26 +33,29 @@ public class EmployeeServise {
 
     public Employee addService(String firstName, String lastName) throws EmployeeAlreadyAdded, EmployeeStorageIsFullException {
         Employee buffer = new Employee(firstName, lastName);
-        if (employees.size() == 10){
-                throw  new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать 10 человек.");
-            }
+        if (employees.size() == 10) {
+            throw new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать 10 человек.");
+        }
         if (employees.contains(buffer)) {
-                throw  new EmployeeAlreadyAdded(firstName + " " + lastName + " уже есть в списке сотрудников.");
-            }
-            employees.add(buffer);
+            throw new EmployeeAlreadyAdded(firstName + " " + lastName + " уже есть в списке сотрудников.");
+        }
+        employees.add(buffer);
         return buffer;
     }
 
-    public Employee removeService(String firstName, String lastName) throws EmployeeNotFoundException{
+    public Employee removeService(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee buffer = new Employee(firstName, lastName);
-        if (employees.size() == 0){
-            throw  new EmployeeNotFoundException("Список сотрудников пуст.");
+        if (employees.size() == 0) {
+            throw new EmployeeNotFoundException("Список сотрудников пуст.");
         }
         if (!employees.contains(buffer)) {
-            throw  new EmployeeNotFoundException(buffer + " в списке сотрудников отсутствует.");
+            throw new EmployeeNotFoundException(buffer + " в списке сотрудников отсутствует.");
         }
         employees.remove(buffer);
         return buffer;
     }
 
+    public static List<Employee> getEmployees() {
+        return employees;
+    }
 }

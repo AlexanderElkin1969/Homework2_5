@@ -1,6 +1,6 @@
 package pro.sky.java.course2.Employee;
 
-public class EmployeeStorageIsFullException extends RuntimeException{
+public class EmployeeStorageIsFullException extends RuntimeException {
     public EmployeeStorageIsFullException() {
     }
 

@@ -1,6 +1,6 @@
 package pro.sky.java.course2.Employee;
 
-public class EmployeeAlreadyAdded extends RuntimeException{
+public class EmployeeAlreadyAdded extends RuntimeException {
     public EmployeeAlreadyAdded() {
     }
 

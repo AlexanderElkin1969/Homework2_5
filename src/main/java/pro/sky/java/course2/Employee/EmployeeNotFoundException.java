@@ -1,6 +1,6 @@
 package pro.sky.java.course2.Employee;
 
-public class EmployeeNotFoundException extends RuntimeException{
+public class EmployeeNotFoundException extends RuntimeException {
     public EmployeeNotFoundException() {
     }
 
