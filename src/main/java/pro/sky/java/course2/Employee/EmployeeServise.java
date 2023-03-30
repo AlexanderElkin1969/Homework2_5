@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeServise {
- //   private static Employee[] employees = new Employee[10];
+ //  static Employee[] employees = new Employee[10];
     public static Employee[] employees = {
             new Employee("Александр", "Александров"),
             new Employee("Александр", "Борисов"),
@@ -19,6 +19,7 @@ public class EmployeeServise {
     };
 
     public Employee findService(String firstName, String lastName) throws EmployeeNotFoundException{
+        Employee buffer = new Employee(firstName, lastName);
         if (employees.length == 0){
             throw  new EmployeeNotFoundException("Список сотрудников пуст.");
         }
@@ -26,11 +27,11 @@ public class EmployeeServise {
             if (employees[i] == null){
                 continue;
             }
-            if (firstName.equals(employees[i].getFirstName())&&lastName.equals(employees[i].getLastName())){
+            if (employees[i].equals(buffer)){
                 return employees[i];
             }
         }
-        throw new EmployeeNotFoundException(firstName + " " + lastName + " в списке сотрудников отсутствует.");
+        throw new EmployeeNotFoundException(buffer + " в списке сотрудников отсутствует.");
     }
 
     public Employee addService(String firstName, String lastName) throws EmployeeAlreadyAdded, EmployeeStorageIsFullException {

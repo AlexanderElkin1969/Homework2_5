@@ -1,8 +1,8 @@
 package pro.sky.java.course2.Employee;
 
 public class Employee {
-    private  String firstName;
-    private  String lastName;
+    private final String firstName;
+    private final String lastName;
 
     public Employee(String firstName, String lastName){
         this.firstName = firstName;
@@ -18,7 +18,7 @@ public class Employee {
     }
     @Override
     public String toString() {
-        return "Фамилия: " + lastName + "        Имя: " + firstName;
+        return " Имя: " + firstName + " Фамилия: " + lastName;
     }
 
     @Override
