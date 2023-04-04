@@ -1,10 +1,10 @@
 package pro.sky.java.course2.Employee;
 
 public class Employee {
-    private  String firstName;
-    private  String lastName;
+    private final String firstName;
+    private final String lastName;
 
-    public Employee(String firstName, String lastName){
+    public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -16,9 +16,10 @@ public class Employee {
     public String getLastName() {
         return lastName;
     }
+
     @Override
     public String toString() {
-        return "Фамилия: " + lastName + " Имя: " + firstName;
+        return "{ firstName: " + firstName + " lastName: " + lastName + " }";
     }
 
     @Override
