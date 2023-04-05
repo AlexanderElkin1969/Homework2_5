@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class EmployeeServise {
+public class EmployeeService {
 
     public static final int MAX_COUNT_EMPLOYEES = 10;
     private static List<Employee> employees = new ArrayList<>(Arrays.asList(

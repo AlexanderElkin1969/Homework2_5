@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeServise employeeService;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeServise employeeService) throws EmployeeNotFoundException {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
