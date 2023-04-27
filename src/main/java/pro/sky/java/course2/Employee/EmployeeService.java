@@ -1,6 +1,8 @@
 package pro.sky.java.course2.Employee;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import pro.sky.java.course2.Employee.Exeption.IncorrectNameExeption;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +24,7 @@ public class EmployeeService {
     ));
 
     public Employee findService(String firstName, String lastName) throws EmployeeNotFoundException {
-        Employee buffer = new Employee(firstName, lastName);
+        Employee buffer = checkCorrectName(firstName, lastName);
         if (employees.size() == 0) {
             throw new EmployeeNotFoundException("Список сотрудников пуст.");
         }
@@ -32,22 +34,23 @@ public class EmployeeService {
             }
         }
         throw new EmployeeNotFoundException(buffer + " в списке сотрудников отсутствует.");
+
     }
 
     public Employee addService(String firstName, String lastName) throws EmployeeAlreadyAdded, EmployeeStorageIsFullException {
-        Employee buffer = new Employee(firstName, lastName);
+        Employee buffer = checkCorrectName(firstName, lastName);
         if (employees.size() == MAX_COUNT_EMPLOYEES) {
             throw new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать 10 человек.");
         }
         if (employees.contains(buffer)) {
-            throw new EmployeeAlreadyAdded(firstName + " " + lastName + " уже есть в списке сотрудников.");
+            throw new EmployeeAlreadyAdded(buffer + " уже есть в списке сотрудников.");
         }
         employees.add(buffer);
         return buffer;
     }
 
     public Employee removeService(String firstName, String lastName) throws EmployeeNotFoundException {
-        Employee buffer = new Employee(firstName, lastName);
+        Employee buffer = checkCorrectName(firstName, lastName);
         if (employees.size() == 0) {
             throw new EmployeeNotFoundException("Список сотрудников пуст.");
         }
@@ -56,6 +59,17 @@ public class EmployeeService {
         }
         employees.remove(buffer);
         return buffer;
+    }
+
+    public Employee checkCorrectName(String firstName, String lastName) throws IncorrectNameExeption {
+        if (StringUtils.isNotBlank(firstName) && StringUtils.isAlpha(firstName) &&
+                StringUtils.isNotBlank(lastName) && StringUtils.isAlpha(lastName)) {
+            String name = StringUtils.capitalize(StringUtils.toRootLowerCase(firstName));
+            String surname = StringUtils.capitalize(StringUtils.toRootLowerCase(lastName));
+            return new Employee(name, surname);
+        } else {
+            throw new IncorrectNameExeption();
+        }
     }
 
     public static List<Employee> getEmployees() {
