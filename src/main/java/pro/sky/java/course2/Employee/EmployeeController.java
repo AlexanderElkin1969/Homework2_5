@@ -1,10 +1,9 @@
 package pro.sky.java.course2.Employee;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pro.sky.java.course2.Employee.Exeption.*;
 
 import java.util.List;
 
@@ -12,9 +11,9 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeServise employeeService;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeServise employeeService) throws EmployeeNotFoundException {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -38,9 +37,7 @@ public class EmployeeController {
                       @RequestParam("lastName") String lastName) {
         try {
             return employeeService.addService(firstName, lastName).toString() + " добавлен в список сотрудников.";
-        } catch (EmployeeAlreadyAdded e) {
-            return e.getLocalizedMessage();
-        } catch (EmployeeStorageIsFullException e) {
+        } catch (EmployeeAlreadyAdded | EmployeeStorageIsFullException e) {
             return e.getLocalizedMessage();
         }
     }
@@ -58,6 +55,12 @@ public class EmployeeController {
     @GetMapping(path = "/getList")
     public List<Employee> getList() {
         return employeeService.getEmployees();
+    }
+
+    @ExceptionHandler(IncorrectNameExeption.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public String IncorrectNameExeption(IncorrectNameExeption e){
+        return e.getMessage();
     }
 
 }
