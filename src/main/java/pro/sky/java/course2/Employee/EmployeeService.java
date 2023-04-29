@@ -2,7 +2,7 @@ package pro.sky.java.course2.Employee;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import pro.sky.java.course2.Employee.Exeption.IncorrectNameExeption;
+import pro.sky.java.course2.Employee.Exeption.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.List;
 public class EmployeeService {
 
     public static final int MAX_COUNT_EMPLOYEES = 10;
-    private static List<Employee> employees = new ArrayList<>(Arrays.asList(
+    private final static List<Employee> employees = new ArrayList<>(Arrays.asList(
             new Employee("Александр", "Александров"),
             new Employee("Александр", "Борисов"),
             new Employee("Владимир", "Борисов"),
@@ -62,17 +62,16 @@ public class EmployeeService {
     }
 
     public Employee checkCorrectName(String firstName, String lastName) throws IncorrectNameExeption {
-        if (StringUtils.isNotBlank(firstName) && StringUtils.isAlpha(firstName) &&
-                StringUtils.isNotBlank(lastName) && StringUtils.isAlpha(lastName)) {
-            String name = StringUtils.capitalize(StringUtils.toRootLowerCase(firstName));
-            String surname = StringUtils.capitalize(StringUtils.toRootLowerCase(lastName));
+        if (StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
+            String name = StringUtils.capitalize(firstName.toLowerCase());
+            String surname = StringUtils.capitalize(lastName.toLowerCase());
             return new Employee(name, surname);
         } else {
-            throw new IncorrectNameExeption();
+            throw new IncorrectNameExeption("Имя, отчество и фамилия должны содержать только буквы.");
         }
     }
 
-    public static List<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return Collections.unmodifiableList(employees);
     }
 }

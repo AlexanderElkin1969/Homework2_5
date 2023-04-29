@@ -5,4 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class IncorrectNameExeption extends RuntimeException {
+    public IncorrectNameExeption(String message) {
+        super(message);
+    }
 }

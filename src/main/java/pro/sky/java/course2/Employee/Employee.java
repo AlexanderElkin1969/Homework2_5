@@ -19,7 +19,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "{ firstName: " + firstName + " lastName: " + lastName + " }";
+        return "{ firstName: " + firstName + ", lastName: " + lastName + " }";
     }
 
     @Override
