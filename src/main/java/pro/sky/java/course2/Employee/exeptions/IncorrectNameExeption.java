@@ -1,4 +1,4 @@
-package pro.sky.java.course2.Employee.Exeption;
+package pro.sky.java.course2.Employee.exeptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

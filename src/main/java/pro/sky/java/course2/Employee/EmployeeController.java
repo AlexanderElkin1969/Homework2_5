@@ -3,7 +3,8 @@ package pro.sky.java.course2.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.java.course2.Employee.Exeption.*;
+import pro.sky.java.course2.Employee.exeptions.*;
+import pro.sky.java.course2.Employee.model.Employee;
 
 import java.util.List;
 

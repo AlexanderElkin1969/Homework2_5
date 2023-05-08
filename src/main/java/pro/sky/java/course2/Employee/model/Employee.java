@@ -1,4 +1,4 @@
-package pro.sky.java.course2.Employee;
+package pro.sky.java.course2.Employee.model;
 
 public class Employee {
     private final String firstName;
