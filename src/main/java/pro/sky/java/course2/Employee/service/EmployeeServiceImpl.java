@@ -29,8 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee find(String name, String surname) throws EmployeeNotFoundException {
-        Employee buffer = checkCorrectName(name, surname);
-        String str = surname + " " + name;
+        String str = checkCorrectName(surname) + " " + checkCorrectName(name);
         if (employees.size() == 0) {
             throw new EmployeeNotFoundException("Список сотрудников пуст.");
         }
@@ -43,8 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(String name, String surname) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
-        Employee buffer = checkCorrectName(name, surname);
-        String str = surname + " " + name;
+        String str = checkCorrectName(surname) + " " + checkCorrectName(name);
         if (employees.size() == MAX_COUNT_EMPLOYEES) {
             throw new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать" +
                     MAX_COUNT_EMPLOYEES + " человек.");
@@ -52,14 +50,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsKey(str)) {
             throw new EmployeeAlreadyAddedException(str + " уже есть в списке сотрудников.");
         }
+        Employee buffer = new Employee(checkCorrectName(name), checkCorrectName(surname));
         employees.put(str, buffer);
         return buffer;
     }
 
     @Override
     public Employee remove(String name, String surname) throws EmployeeNotFoundException {
-        Employee buffer = checkCorrectName(name, surname);
-        String str = surname + " " + name;
+        Employee buffer;
+        String str = checkCorrectName(surname) + " " + checkCorrectName(name);
         if (employees.size() == 0) {
             throw new EmployeeNotFoundException("Список сотрудников пуст.");
         }
@@ -77,11 +76,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Map.copyOf(employees);
     }
 
-    public Employee checkCorrectName(String firstName, String lastName) throws IncorrectNameException {
-        if (StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
-            String name = StringUtils.capitalize(firstName.toLowerCase());
-            String surname = StringUtils.capitalize(lastName.toLowerCase());
-            return new Employee(name, surname);
+    public String checkCorrectName(String name) throws IncorrectNameException {
+        if (StringUtils.isAlpha(name)) {
+            return StringUtils.capitalize(name.toLowerCase());
         } else {
             throw new IncorrectNameException("Имя и фамилия должны содержать только буквы.");
         }

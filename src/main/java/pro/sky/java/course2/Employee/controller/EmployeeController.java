@@ -7,7 +7,6 @@ import pro.sky.java.course2.Employee.exception.*;
 import pro.sky.java.course2.Employee.model.Employee;
 import pro.sky.java.course2.Employee.service.EmployeeService;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -48,9 +47,9 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
-    @ExceptionHandler(IncorrectNameException.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public String IncorrectNameException(IncorrectNameException e){
+    public String allMyException(RuntimeException e){
         return e.getMessage();
     }
 
