@@ -44,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee add(String name, String surname) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
         String str = checkCorrectName(surname) + " " + checkCorrectName(name);
         if (employees.size() == MAX_COUNT_EMPLOYEES) {
-            throw new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать" +
+            throw new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать " +
                     MAX_COUNT_EMPLOYEES + " человек.");
         }
         if (employees.containsKey(str)) {
@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (StringUtils.isAlpha(name)) {
             return StringUtils.capitalize(name.toLowerCase());
         } else {
-            throw new IncorrectNameException("Имя и фамилия должны содержать только буквы.");
+            throw new IncorrectNameException("Имя или фамилия должны содержать только буквы.");
         }
     }
 }
