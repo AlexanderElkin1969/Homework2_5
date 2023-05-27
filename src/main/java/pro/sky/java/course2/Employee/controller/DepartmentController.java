@@ -29,6 +29,12 @@ public class DepartmentController {
         return departmentService.minSalary(id);
     }
 
+    @GetMapping(path = "/{id}/salary/sum")
+    public String sumSalary(@PathVariable int id) {
+        return departmentService.sumSalary(id);
+    }
+
+
     @GetMapping(path = "/{id}/employees")
     public ArrayList<Employee> allOfDepartment(@PathVariable int id) {
         return departmentService.allOfDepartment(id);

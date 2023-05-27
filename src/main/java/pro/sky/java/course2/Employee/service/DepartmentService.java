@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 public interface DepartmentService {
 
-    public ArrayList<Employee> allOfDepartment(int department);
+    ArrayList<Employee> allOfDepartment(int department);
 
-    public ArrayList<Employee> allSortedToDepartment();
+    ArrayList<Employee> allSortedToDepartment();
 
     String maxSalary(int department);
 
     String minSalary(int department);
+
+    String sumSalary(int department);
 }

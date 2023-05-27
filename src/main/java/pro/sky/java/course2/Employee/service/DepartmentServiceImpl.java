@@ -32,6 +32,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public String sumSalary(int department) {
+        int sum = 0;
+        ArrayList<Employee> employees = allOfDepartment(department);
+        if (employees.size() == 0) return "В " + department + " отделе нет сотрудников.";
+        for (Employee e : employees) {
+            sum = sum + e.getSalary();
+        }
+        return "Суммарные затраты на выплату зарплат в " + department + " отделе: " + sum;
+    }
+
+    @Override
     public ArrayList<Employee> allOfDepartment(int dep) {
         return employeeService.getEmployees().values().stream()
                 .filter(e -> e.getDepartment() == dep )
