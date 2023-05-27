@@ -8,6 +8,7 @@ import pro.sky.java.course2.Employee.model.Employee;
 import pro.sky.java.course2.Employee.service.DepartmentService;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/department")
@@ -41,7 +42,7 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "/employees")
-    public ArrayList<Employee> allSortedToDepartment() {
+    public Map<Integer, ArrayList<Employee>> allSortedToDepartment() {
         return departmentService.allSortedToDepartment();
     }
 }

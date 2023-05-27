@@ -5,6 +5,8 @@ import pro.sky.java.course2.Employee.model.Employee;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,9 +53,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public ArrayList<Employee> allSortedToDepartment() {
-        return employeeService.getEmployees().values().stream()
-                .sorted(Comparator.comparingInt(Employee::hashCode))
-                .collect(Collectors.toCollection(ArrayList::new));
+    public Map<Integer, ArrayList<Employee>> allSortedToDepartment() {
+        Map<Integer,ArrayList<Employee>> sortedToDepartment = new HashMap<>();
+        for (int i = 0; i < 3; i++) {                               //     3 департамента
+            sortedToDepartment.put( i+1, allOfDepartment(i+1));
+        }
+        return sortedToDepartment;
     }
 }
