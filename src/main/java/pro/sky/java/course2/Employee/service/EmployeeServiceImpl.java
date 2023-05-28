@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    public static final int MAX_COUNT_EMPLOYEES = 12;           // по штату 10 сотрудников в 3 отделах
+    public static final int MAX_COUNT_EMPLOYEES = 12;           // по штату 12 сотрудников в 3 отделах
     private static Map<String, Employee> employees = new HashMap<>(Map.of(
             "Александров Александр", new Employee("Александр", "Александров"),
             "Александров Борис", new Employee("Борис", "Александров"),
@@ -52,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsKey(str)) {
             throw new EmployeeAlreadyAddedException(str + " уже есть в списке сотрудников.");
         }
-        Employee buffer = new Employee( correctName, correctSurname);
+        Employee buffer = new Employee(correctName, correctSurname);
         employees.put(str, buffer);
         return buffer;
     }

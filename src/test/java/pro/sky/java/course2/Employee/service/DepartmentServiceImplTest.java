@@ -13,8 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.java.course2.Employee.exception.DepartmentNotFoundException;
 import pro.sky.java.course2.Employee.model.Employee;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.mockito.Mockito.when;
@@ -31,18 +30,18 @@ public class DepartmentServiceImplTest {
     private Map<String, Employee> employees;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         employees = new HashMap<>(Map.of(
                 "Александров Александр",
-                new Employee( "Александр", "Александров", 1, 100_000),
+                new Employee("Александр", "Александров", 1, 100_000),
                 "Александров Борис",
-                new Employee( "Борис", "Александров", 1, 150_000),
+                new Employee("Борис", "Александров", 1, 150_000),
                 "Борисов Александр",
-                new Employee( "Александр", "Борисов", 2, 200_000),
+                new Employee("Александр", "Борисов", 2, 200_000),
                 "Александров Иван",
-                new Employee( "Иван", "Александров", 3, 120_000),
+                new Employee("Иван", "Александров", 3, 120_000),
                 "Борисов Борис",
-                new Employee( "Борис", "Борисов", 3, 130_000)
+                new Employee("Борис", "Борисов", 3, 130_000)
         ));
         when(employeeService.getEmployees()).thenReturn(employees);
     }
@@ -52,7 +51,6 @@ public class DepartmentServiceImplTest {
     public void maxSalaryOfDepartmentTest(int department, int expected) {
         Assertions.assertEquals(out.maxSalary(department), expected);
     }
-
 
     @ParameterizedTest
     @MethodSource("minSalaryOfDepartmentTestParams")
@@ -69,26 +67,55 @@ public class DepartmentServiceImplTest {
     @Test
     public void shouldThrowDepartmentNotFoundException() {
         Assertions.assertThrows(DepartmentNotFoundException.class,
-                () -> out.maxSalary(0));Assertions.assertThrows(DepartmentNotFoundException.class,
-                () -> out.minSalary(0));Assertions.assertThrows(DepartmentNotFoundException.class,
-                () -> out.sumSalary(0));
+                () -> out.maxSalary(0));
+        Assertions.assertThrows(DepartmentNotFoundException.class,
+                () -> out.minSalary(0));
+        Assertions.assertThrows(DepartmentNotFoundException.class,
+                () -> out.sumSalary(4));
     }
 
+
+    @ParameterizedTest
+    @MethodSource("allOfDepartmentTestParams")
+    public void allOfDepartmentTest(int department, List<Employee> expected) {
+        Assertions.assertEquals(out.allOfDepartment(department), expected);
+    }
+
+    @Test
+    public void allSortedToDepartmentTest() {
+        Map <Integer, List<Employee>> expected = Map.of(
+                1,
+                List.of(
+                        new Employee("Александр", "Александров", 1, 100_000),
+                        new Employee("Борис", "Александров", 1, 150_000)
+                ),
+                2,
+                List.of(
+                        new Employee("Александр", "Борисов", 2, 200_000)
+                ),
+                3,
+                List.of(new Employee("Иван", "Александров", 3, 120_000),
+                        new Employee("Борис", "Борисов", 3, 130_000)
+                )
+        );
+        Assertions.assertEquals(out.allSortedToDepartment(), expected);
+    }
+
+
     public static Stream<Arguments> maxSalaryOfDepartmentTestParams() {
-        return  Stream.of(
-                Arguments.of( 1, 150_000),
-                Arguments.of( 2, 200_000),
-                Arguments.of( 3, 130_000)
+        return Stream.of(
+                Arguments.of(1, 150_000),
+                Arguments.of(2, 200_000),
+                Arguments.of(3, 130_000)
         );
     }
 
     public static Stream<Arguments> minSalaryOfDepartmentTestParams() {
-            return  Stream.of(
-                    Arguments.of( 1, 100_000),
-                    Arguments.of( 2, 200_000),
-                    Arguments.of( 3, 120_000)
-            );
-
+        return Stream.of(
+                Arguments.of(1, 100_000),
+                Arguments.of(2, 200_000),
+                Arguments.of(3, 120_000)
+        );
     }
 
     public static Stream<Arguments> sumAllSalaryOfDepartmentTestParams() {
@@ -96,6 +123,26 @@ public class DepartmentServiceImplTest {
                 Arguments.of(1, 250_000),
                 Arguments.of(2, 200_000),
                 Arguments.of(3, 250_000)
+        );
+    }
+
+    public static Stream<Arguments> allOfDepartmentTestParams() {
+        return Stream.of(
+                Arguments.of(1,
+                        List.of(
+                                new Employee("Александр", "Александров", 1, 100_000),
+                                new Employee("Борис", "Александров", 1, 150_000)
+                        )),
+                Arguments.of(2,
+                        List.of(
+                                new Employee("Александр", "Борисов", 2, 200_000)
+                        )),
+                Arguments.of(3,
+                        List.of(new Employee("Иван", "Александров", 3, 120_000),
+                                new Employee("Борис", "Борисов", 3, 130_000)
+                        )),
+                Arguments.of(4,
+                        Collections.emptyList())
         );
     }
 

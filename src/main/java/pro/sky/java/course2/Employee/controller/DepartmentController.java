@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.Employee.model.Employee;
 import pro.sky.java.course2.Employee.service.DepartmentService;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -37,12 +37,12 @@ public class DepartmentController {
 
 
     @GetMapping(path = "/{id}/employees")
-    public ArrayList<Employee> allOfDepartment(@PathVariable int id) {
+    public List<Employee> allOfDepartment(@PathVariable int id) {
         return departmentService.allOfDepartment(id);
     }
 
     @GetMapping(path = "/employees")
-    public Map<Integer, ArrayList<Employee>> allSortedToDepartment() {
+    public Map<Integer, List<Employee>> allSortedToDepartment() {
         return departmentService.allSortedToDepartment();
     }
 }
