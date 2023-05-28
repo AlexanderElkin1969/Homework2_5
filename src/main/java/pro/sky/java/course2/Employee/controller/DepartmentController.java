@@ -22,17 +22,17 @@ public class DepartmentController {
 
     @GetMapping(path = "/{id}/salary/max")
     public String maxSalary(@PathVariable int id) {
-        return departmentService.maxSalary(id);
+        return "Максимальная зарплата в " + id + " отделе: " +  departmentService.maxSalary(id);
     }
 
     @GetMapping(path = "/{id}/salary/min")
     public String minSalary(@PathVariable int id) {
-        return departmentService.minSalary(id);
+        return "Минимальная зарплата в " + id + " отделе: " + departmentService.minSalary(id);
     }
 
     @GetMapping(path = "/{id}/salary/sum")
     public String sumSalary(@PathVariable int id) {
-        return departmentService.sumSalary(id);
+        return "Суммарные затраты на выплату зарплат в " + id + " отделе: " + departmentService.sumSalary(id);
     }
 
 

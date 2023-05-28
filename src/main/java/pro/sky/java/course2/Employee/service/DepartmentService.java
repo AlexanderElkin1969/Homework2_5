@@ -12,9 +12,9 @@ public interface DepartmentService {
 
     Map<Integer, ArrayList<Employee>> allSortedToDepartment();
 
-    String maxSalary(int department);
+    int maxSalary(int department);
 
-    String minSalary(int department);
+    int minSalary(int department);
 
-    String sumSalary(int department);
+    int sumSalary(int department);
 }

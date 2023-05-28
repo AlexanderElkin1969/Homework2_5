@@ -1,6 +1,7 @@
 package pro.sky.java.course2.Employee.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.java.course2.Employee.exception.DepartmentNotFoundException;
 import pro.sky.java.course2.Employee.model.Employee;
 
 import java.util.ArrayList;
@@ -19,29 +20,35 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public String maxSalary(int department) {
+    public int maxSalary(int department) {
         ArrayList<Employee> employees = allOfDepartment(department);
         int size = employees.size();
-        if (size == 0) return "В " + department + " отделе нет сотрудников.";
-        return "Максимальная зарплата в " + department + " отделе: " + employees.get(size - 1).toString();
+        if (size == 0){
+            throw new DepartmentNotFoundException("В " + department + " отделе нет сотрудников.");
+        }else {
+            return employees.get(size - 1).getSalary();
+        }
     }
 
     @Override
-    public String minSalary(int department) {
+    public int minSalary(int department) {
         ArrayList<Employee> employees = allOfDepartment(department);
-        if (employees.size() == 0) return "В " + department + " отделе нет сотрудников.";
-        return "Минимальная зарплата в " + department + " отделе: " + employees.get(0).toString();
+        if (employees.size() == 0){
+            throw new DepartmentNotFoundException("В " + department + " отделе нет сотрудников.");
+        }else {
+            return employees.get(0).getSalary();
+        }
     }
 
     @Override
-    public String sumSalary(int department) {
+    public int sumSalary(int department) {
         int sum = 0;
         ArrayList<Employee> employees = allOfDepartment(department);
-        if (employees.size() == 0) return "В " + department + " отделе нет сотрудников.";
+        if (employees.size() == 0) throw new DepartmentNotFoundException("В " + department + " отделе нет сотрудников.");
         for (Employee e : employees) {
             sum = sum + e.getSalary();
         }
-        return "Суммарные затраты на выплату зарплат в " + department + " отделе: " + sum;
+        return sum;
     }
 
     @Override
