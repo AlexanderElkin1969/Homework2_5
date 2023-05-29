@@ -1,9 +1,7 @@
 package pro.sky.java.course2.Employee.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pro.sky.java.course2.Employee.exception.DepartmentNotFoundException;
 import pro.sky.java.course2.Employee.model.Employee;
 import pro.sky.java.course2.Employee.service.DepartmentService;
 
@@ -45,4 +43,7 @@ public class DepartmentController {
     public Map<Integer, List<Employee>> allSortedToDepartment() {
         return departmentService.allSortedToDepartment();
     }
+
+    @ExceptionHandler
+    public String departmentNotFoundException(DepartmentNotFoundException e){return e.getMessage(); }
 }
