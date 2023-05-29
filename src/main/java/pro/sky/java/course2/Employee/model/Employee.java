@@ -14,6 +14,13 @@ public class Employee {
         this.salary = 100_000 + (int) (Math.random() * 100_001);
     }
 
+    public Employee(String firstName, String lastName, int department, int salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;            //    3 департамента
+        this.salary = salary;
+    }
+
     public String getLastName() {
         return lastName;
     }

@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    public static final int MAX_COUNT_EMPLOYEES = 10;           // по штату 10 сотрудников в 3 отделах
+    public static final int MAX_COUNT_EMPLOYEES = 12;           // по штату 12 сотрудников в 3 отделах
     private static Map<String, Employee> employees = new HashMap<>(Map.of(
             "Александров Александр", new Employee("Александр", "Александров"),
             "Александров Борис", new Employee("Борис", "Александров"),
@@ -42,7 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(String name, String surname) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
-        String str = checkCorrectName(surname) + " " + checkCorrectName(name);
+        String correctName = checkCorrectName(name);
+        String correctSurname = checkCorrectName(surname);
+        String str = correctSurname + " " + correctName;
         if (employees.size() == MAX_COUNT_EMPLOYEES) {
             throw new EmployeeStorageIsFullException("Список сотрудников переполнен. Число сотрудников по штату не может превышать " +
                     MAX_COUNT_EMPLOYEES + " человек.");
@@ -50,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsKey(str)) {
             throw new EmployeeAlreadyAddedException(str + " уже есть в списке сотрудников.");
         }
-        Employee buffer = new Employee(checkCorrectName(name), checkCorrectName(surname));
+        Employee buffer = new Employee(correctName, correctSurname);
         employees.put(str, buffer);
         return buffer;
     }

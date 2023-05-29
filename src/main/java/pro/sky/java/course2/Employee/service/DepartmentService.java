@@ -3,15 +3,18 @@ package pro.sky.java.course2.Employee.service;
 
 import pro.sky.java.course2.Employee.model.Employee;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public interface DepartmentService {
 
-    public ArrayList<Employee> allOfDepartment(int department);
+    List<Employee> allOfDepartment(int department);
 
-    public ArrayList<Employee> allSortedToDepartment();
+    Map<Integer, List<Employee>> allSortedToDepartment();
 
-    String maxSalary(int department);
+    int maxSalary(int department);
 
-    String minSalary(int department);
+    int minSalary(int department);
+
+    int sumSalary(int department);
 }
